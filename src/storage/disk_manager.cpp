@@ -52,7 +52,7 @@ void DiskManager::read_page(int fd, page_id_t page_no, char *offset, int num_byt
     // 注意read返回值与num_bytes不等时，throw InternalError("DiskManager::read_page Error");
     lseek(fd, page_no * PAGE_SIZE, SEEK_SET);
     int read_bytes = read(fd, offset, num_bytes);
-    if (read_bytes != num_bytes) {
+    if (read_bytes < 0) {
         throw InternalError("DiskManager::read_page Error");
     }
 }

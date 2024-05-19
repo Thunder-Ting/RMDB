@@ -6,7 +6,7 @@ add_executable(lru_replacer_test storage/lru_replacer_test.cpp)
 target_link_libraries(lru_replacer_test lru_replacer gtest_main)
 
 add_executable(buffer_pool_manager_test storage/buffer_pool_manager_test.cpp)
-target_link_libraries(buffer_pool_manager_test storage gtest_main)
+target_link_libraries(buffer_pool_manager_test storage gtest_main ${LibPath_SpdLog}/lib/libspdlog.a)
 
 add_executable(record_manager_test storage/record_manager_test.cpp)
 target_link_libraries(record_manager_test record gtest_main)

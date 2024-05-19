@@ -7,7 +7,7 @@
 #include <thread>
 #include <unordered_map>
 #include <vector>
-
+#include "spdlog/spdlog.h"
 #include "gtest/gtest.h"
 
 constexpr int MAX_FILES = 32;
@@ -185,7 +185,8 @@ TEST_F(BufferPoolManagerTest, LargeScaleTest) {
 TEST_F(BufferPoolManagerTest, MultipleFilesTest) {
     const size_t buffer_size = MAX_FILES * MAX_PAGES / 2;
     auto buffer_pool_manager = std::make_unique<BufferPoolManager>(buffer_size, disk_manager_.get());
-
+    spdlog::info("Hello, {}!", "World");
+    sleep(3);
     // mock记录生成文件的(文件fd, page在内存中的首地址)
     // page在内存中的首地址是page在内存中的备份
     std::unordered_map<int, char *> mock;  // fd -> page address
@@ -237,6 +238,7 @@ TEST_F(BufferPoolManagerTest, MultipleFilesTest) {
     // Flush and test disk
     for (auto &entry : fd2name) {
         int fd = entry.first;
+        std::cout<<"文件："<<fd<<" 文件名："<<entry.second<<std::endl;
         buffer_pool_manager->flush_all_pages(fd);  // wirte all pages in fd file into disk
         for (int page_no = 0; page_no < MAX_PAGES; page_no++) {
             // check disk: disk data == mock data

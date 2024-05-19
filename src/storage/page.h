@@ -59,9 +59,13 @@ class Page {
 
     PageId get_page_id() const { return id_; }
 
+    void set_page_id(PageId id) { id_ = id; }
+
     inline char *get_data() { return data_; }
 
     bool is_dirty() const { return is_dirty_; }
+
+    void set_is_dirty(bool is_dirty) { is_dirty_ = is_dirty; }
 
     static constexpr size_t OFFSET_PAGE_START = 0;
     static constexpr size_t OFFSET_LSN = 0;
